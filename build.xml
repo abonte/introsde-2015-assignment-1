@@ -102,7 +102,7 @@
         <xjc schema="people.xsd" destdir="${src.dir}" package="${xjc.package}" />
     </target>
 
-    <target name="compile" depends="init, generate">  <!-- tolto generate da depends -->
+    <target name="compile" depends="init, generate"> 
         <echo message="Compile target has been called" />
         <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" includeAntRuntime="false">
         </javac>
@@ -113,8 +113,8 @@
         </copy>
     </target>
 
-    <target name="execute.HPWriter">
-        <echo message="Executing Health Profile Writer: will produce a people.xml in home folder" />
+    <target name="execute.JavatoXML">
+        <echo message="Executing JavatoXML: will produce a people.xml in home folder" />
         <java classname="JavatoXML" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
@@ -125,21 +125,9 @@
         </java>
     </target>
 
-    <target name="execute.HPReader">
-        <echo message="Executing Health Profile Reader: will read the people.xml in home folder and print one at a time" />
+    <target name="execute.XMLtoJava">
+        <echo message="Executing XMLtoJava: will read the people.xml in home folder and print one at a time" />
         <java classname="XMLtoJava" classpath="${build.dir}">
-            <classpath>
-                <fileset dir="${lib.dir}">
-                    <include name="**/*.jar" />
-                    <include name="*.jar" />
-                </fileset>
-            </classpath>
-        </java>
-    </target>
-
-    <target name="execute.JavaToXML">
-        <echo message="Executing JavaToXML" />
-        <java classname="bookstore.JavaToXML" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
                     <include name="**/*.jar" />
@@ -173,21 +161,9 @@
         </java>
     </target>
 
-    <target name="execute.dozerExample">
-        <echo message="Executing Dozer Example" />
-        <java classname="dozerproject.DozerMapperTest" classpath="${build.dir}">
-            <classpath>
-                <fileset dir="${lib.dir}">
-                    <include name="**/*.jar" />
-                    <include name="*.jar" />
-                </fileset>
-            </classpath>
-        </java>
-    </target>
-
-    <target name="execute.HPJson">
-        <echo message="Executing Health Profile Writer for Json" />
-        <java classname="HealthProfileJson" classpath="${build.dir}">
+    <target name="execute.JavatoJson">
+        <echo message="Executing JavatoJson" />
+        <java classname="JavatoJson" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
                     <include name="**/*.jar" />
@@ -203,6 +179,9 @@
         <antcall target="execute.printPeople"/>
         <antcall target="execute.printPerson"/>
         <antcall target="execute.getPersonByWeight"/>
+        <antcall target="execute.JavatoXML"/>
+        <antcall target="execute.XMLtoJava"/>
+        <antcall target="execute.JavatoJson"/>
     </target>
 
     <!-- runs instruction 2 based on Lab 3 -->
