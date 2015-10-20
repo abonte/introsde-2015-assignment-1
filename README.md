@@ -34,13 +34,30 @@ The class *HealthProfileReader* reads the information about the people stored in
 ```
 As soon as the file XML is stored in the memory, there methods in order to performs the following tasks:
 
+**Based on Lab 3:**
+
 1. getWeight and getHeight: given the first name and the last name of a person, retrieves the weight and the height of this person;
 2. print all the details for each person stored in the file people.xml; 
 3. given the id, return the details of a person;
 4. print all people fulfilling a condition on the weight (i.e. >90);
+
+**Based on Lab 4:**
+
 5. convert the list of Java object Person into XML (marshalling to XML);
 6. convert XML into a list of Java object Person (unmarshalling from XML);
 7. convert the list of Java object Person into JSON (marshalling to JSON).
+
+### Code
+
+*[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute task 1,2,3,4 of the previous list;
+
+*[src/peoplestore/JAXBMarshaller.java](src/peoplestore/JAXBMarshaller.java)*: class to execute task 5;
+
+*[src/peoplestore/JAXBUnMarshaller.java](src/peoplestore/JAXBUnMarshaller.java)*: class to execute task 6;
+
+*[src/peoplestore/JavatoJson.java](src/JavatoJson.java)*: class to execute task 7; 
+
+*[src/dao/PeopleStore.java](src/dao/PeopleStore.java)* contains the data access object.
 
 ### Installation
 
@@ -85,15 +102,3 @@ and then one of the following command:
 * `ant execute.JavatoJson` performs task 7.
 
 TODO METTERE DI GENERATE
-
-### Code
-
-*[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute task 1,2,3,4 of the previous list;
-
-*[src/JavatoXML.java](src/JavatoXML.java)*: class to execute task 5;
-
-*[src/XMLtoJava.java](src/XMLtoJava.java)*: class to execute task 6;
-
-*[src/dao/PeopleStore.java](src/dao/PeopleStore.java)* contains the data access object;
-
-*[src/JavatoJson.java](src/JavatoJson.java)*: class to execute task 7. 

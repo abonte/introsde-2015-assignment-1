@@ -1,3 +1,4 @@
+package peoplestore;
 import java.io.File;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +11,10 @@ import dao.PeopleStore;
 
 public class JavatoJson {    
   public static PeopleStore people = new PeopleStore();
-
+  
+  /**
+   * create 3 person
+   */
   public static void initializeDB() {
     Person pallino = new Person();
     Person pallo = new Person(new Long(1), "Fulano", "De Tal", "1984-06-21");
@@ -30,15 +34,16 @@ public class JavatoJson {
     ObjectMapper mapper = new ObjectMapper();
     
     // Adding the Jackson Module to process JAXB annotations
-        JaxbAnnotationModule module = new JaxbAnnotationModule();
+    JaxbAnnotationModule module = new JaxbAnnotationModule();
         
     // configure as necessary
     mapper.registerModule(module);
     mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-
-        String result = mapper.writeValueAsString(people);
-        System.out.println(result);
-        mapper.writeValue(new File("people.json"), people);
-    }
+    mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+    
+    // marshalling
+    String result = mapper.writeValueAsString(people);
+    System.out.println(result);
+    mapper.writeValue(new File("people.json"), people);
+  }
 }

@@ -44,64 +44,83 @@ public class HealthProfileReader {
 
 	//1. Use xpath to implement methods like getWeight and getHeight
 	/**
-	 * Given the first name and last name of a person, it returns
-	 * a Node object containing the node weight of the person.
+	 * Given the id of a person, it returns
+	 * the weight of the person.
 	 * 
-	 * @param firstname 
-	 * @param lastname
-	 * @return node the Node object weight
+	 * @param id
+	 * @return weight
 	 */
-	public Node getWeight(String firstname, String lastname) throws XPathExpressionException {
-
-		XPathExpression expr = xpath.compile("/people/person[firstname='" + firstname + "' and lastname='" + lastname + "']/healthprofile/weight");
+	public String getWeight(String id) throws XPathExpressionException {
+		
+		String id_s = String.format("%04d", Integer.parseInt(id)); //Pad with zeros
+		XPathExpression expr = xpath.compile("/people/person[@id='" + id_s + "']/healthprofile/weight");
 		Node node = (Node) expr.evaluate(doc, XPathConstants.NODE);
-		return node;
+		String weight="";
+		if (node != null){
+			weight = node.getTextContent();
+		}
+		return weight;
 	}
-	
-	/**
-	 * Given the first name and last name of a person, it returns
-	 * a Node object containing the node height of the person.
-	 * 
-	 * @param firstname 
-	 * @param lastname
-	 * @return node the Node object height
-	 */
-	public Node getHeight(String firstname, String lastname) throws XPathExpressionException {
 
-		XPathExpression expr = xpath.compile("/people/person[firstname='" + firstname + "' and lastname='" + lastname + "']/healthprofile/height");
+	/**
+	 * Given the id of a person, it returns
+	 * the weight of the person.
+	 * 
+	 * @param id
+	 * @return height
+	 */
+	public String getHeight(String id) throws XPathExpressionException {
+		
+		String id_s = String.format("%04d", Integer.parseInt(id));
+		XPathExpression expr = xpath.compile("/people/person[@id='" + id_s + "']/healthprofile/height");
 		Node node = (Node) expr.evaluate(doc, XPathConstants.NODE);
-		return node;
+		String height="";
+		if (node != null){
+			height = node.getTextContent();
+		}
+		return height;
 	}
 
 	//2. Make a function that prints all people in the list with detail
 	/**
-	 * Print all the people store in the file people.xml. For each person
-	 * are printed all the details. 
+	 * Return all the people store in the file people.xml.
+	 * @return nodes NodeList containing all people 
 	 */
-	public void printPeople() throws XPathExpressionException {
+	public NodeList getAllPeople() throws XPathExpressionException {
 		
 		XPathExpression expr = xpath.compile("/people/person");
 		Object result = expr.evaluate(doc, XPathConstants.NODESET);
 		NodeList nodes = (NodeList) result; 					//List of all node with name 'person'
-		/*for (int i = 0; i < nodes.getLength(); i++) {
- 	        System.out.println(nodes.item(i).getTextContent());
- 	    }*/
+		return nodes;
+	}
+	
+	/**
+	 * Print all details for each person in the NodeList nodes
+	 * @param nodes
+	 * @throws XPathExpressionException 
+	 */
+	public void printListPeople(NodeList nodes) throws XPathExpressionException{
 		for (int i = 0; i < nodes.getLength(); i++) {
+			printPerson(nodes.item(i));
+		}
+	}
+	
+	public void printPerson(Node node) throws XPathExpressionException{
 			System.out.println("========================================");
-			System.out.println("ID: "+ nodes.item(i).getAttributes().item(0).getTextContent() );
-			NodeList person= nodes.item(i).getChildNodes();   //get all child nodes of the parent node person
+			String id = node.getAttributes().item(0).getTextContent();
+			System.out.println("ID: "+  id);
+			NodeList person= node.getChildNodes();   //get all child nodes of the parent node person
 			Element nelement = (Element) person;
 			System.out.println("Firstname is: " + nelement.getElementsByTagName("firstname").item(0).getTextContent());
 			System.out.println("Lastname is: " + nelement.getElementsByTagName("lastname").item(0).getTextContent());
 			System.out.println("Birthdate is: " + nelement.getElementsByTagName("birthdate").item(0).getTextContent());
 			System.out.println("Healthprofile");
-			System.out.println("	Height is: " + nelement.getElementsByTagName("height").item(0).getTextContent());
-			System.out.println("	Weight is: " + nelement.getElementsByTagName("weight").item(0).getTextContent());
+			System.out.println("	Height is: " + getHeight(id));
+			System.out.println("	Weight is: " + getWeight(id));
 			System.out.println("	Bmi is: " + nelement.getElementsByTagName("bmi").item(0).getTextContent());
 			System.out.println("");	
-		} 
 	}
-
+	
 	//3. A function that accepts id as parameter and prints the HealthProfile of the person with that id
 	/**
 	 * Given an id of a person, the method return the node corresponding
@@ -110,9 +129,9 @@ public class HealthProfileReader {
 	 * @param id id of the person stored in the people.xml
 	 * @return node contain the person
 	 */
-	public Node getPersonById(Long id) throws XPathExpressionException {
+	public Node getPersonById(String id) throws XPathExpressionException {
 		
-		String id_s = String.format("%04d", id);
+		String id_s = String.format("%04d", Integer.parseInt(id));
 		XPathExpression expr = xpath.compile("/people/person[@id='" + id_s + "']");
 		Node node = (Node) expr.evaluate(doc, XPathConstants.NODE);
 		return node;
@@ -126,7 +145,7 @@ public class HealthProfileReader {
 	 * @param operator =,<,> express the condition
 	 * @return nodes NodeList containing the people
 	 */
-	public NodeList getPersonByWeight(Double weight, String operator) throws XPathExpressionException{
+	public NodeList getPeopleByWeight(Double weight, String operator) throws XPathExpressionException{
 
 		XPathExpression expr = xpath.compile("//healthprofile[weight " + operator + "'" + weight + "']/..");
 		NodeList nodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
@@ -145,22 +164,22 @@ public class HealthProfileReader {
 			System.out.println("I cannot execute any action.");
 		} else {
 			String method = args[0];
-			if (method.equals("printPeople")) {
-				test.printPeople();
-			} else if (method.equals("printPerson")) {
-				Long personId = Long.parseLong(args[1]);
+			if (method.equals("getAllPeople")) {
+				NodeList nodes = test.getAllPeople();
+				test.printListPeople(nodes);
+			} else if (method.equals("getPersonById")) {
+				String personId = args[1];
 				node = test.getPersonById(personId);
 				if (node != null){
-					System.out.println("Node name: " + node.getNodeName());
-					System.out.println("My childs text contents :" + node.getTextContent());
+					test.printPerson(node);
+				} else {
+					System.out.println("A person with id="+args[1]+" doesn't exist.");
 				}
-			}  else if (method.equals("getPersonByWeight")) {
+			}  else if (method.equals("getPeopleByWeight")) {
 				Double weight = Double.parseDouble(args[1]);
 				String operator = args[2];
-				NodeList nodes = test.getPersonByWeight(weight,operator);
-				for (int i = 0; i < nodes.getLength(); i++) {
-					System.out.println(nodes.item(i).getTextContent());
-				}
+				NodeList nodes = test.getPeopleByWeight(weight,operator);
+				test.printListPeople(nodes);
 			} else {
 				System.out.println("The system did not find the method '"+method+"'");
 			}

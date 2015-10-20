@@ -39,6 +39,8 @@ public class JAXBUnMarshaller {
 			for (int i = 0; i < personList.size(); i++) {
 
 				PersonType person = (PersonType) personList.get(i);
+				System.out.println("========================================");
+				System.out.println("ID: "+  person.getId());
 				System.out.println("Firstname: "+ person.getFirstname());
 				System.out.println("Lastname: " + person.getLastname());
 				System.out.println("Birthdate: " + person.getBirthdate());
@@ -47,6 +49,7 @@ public class JAXBUnMarshaller {
 				System.out.println("	Weight: "+ hp.getWeight());
 				System.out.println("	Height: " + hp.getHeight());
 				System.out.println("	BMI: " + hp.getBmi());
+				System.out.println("");
 			}
 			
 		} catch (JAXBException e) {
@@ -57,7 +60,7 @@ public class JAXBUnMarshaller {
 	}
 
 	public static void main(String[] argv) {
-		File xmlDocument = new File("peopleX.xml");
+		File xmlDocument = new File("peopleMarshallUnmarshall.xml");
 		JAXBUnMarshaller jaxbUnmarshaller = new JAXBUnMarshaller();
 
 		jaxbUnmarshaller.unMarshall(xmlDocument);

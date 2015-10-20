@@ -15,6 +15,7 @@
        # The target "download-ivy" and "install-ivy" will download the ivy jar and place it in the "ivy" folder
        # 
 -->
+
 <project name="introsdeAssignment1" default="compile" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <!-- PART 1: Ivy properties, download, installation and configuration -->
@@ -30,21 +31,19 @@
         <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
     </target>
 
-    <!--
-             ================================= 
-                      target: install-ivy         
-                        this target is not necessary if you put ivy.jar in your ant lib directory
-                        if you already have ivy in your ant lib, you can simply remove this
-                        target and the dependency the 'init' target has on it
-                     ================================= 
-            -->
+    <!-- ================================= 
+        target: install-ivy         
+        this target is not necessary if you put ivy.jar in your ant lib directory
+        if you already have ivy in your ant lib, you can simply remove this
+        target and the dependency the 'init' target has on it
+        ================================= -->
+
     <target name="install-ivy" depends="download-ivy" description="--> install ivy">
-        <!--
-             try to load ivy here from local ivy dir, in case the user has not already dropped
-                          it into ant's lib dir (note that the latter copy will always take precedence).
-                          We will not fail as long as local lib dir exists (it may be empty) and
-                          ivy is in at least one of ant's lib dir or the local lib dir. 
-            -->
+        <!--   try to load ivy here from local ivy dir, in case the user has not already dropped
+               it into ant's lib dir (note that the latter copy will always take precedence).
+               We will not fail as long as local lib dir exists (it may be empty) and
+               ivy is in at least one of ant's lib dir or the local lib dir. 
+        -->
         <path id="ivy.lib.path">
             <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
         </path>
@@ -57,9 +56,8 @@
     <property name="lib.dir" value="lib" />
     <property name="xjc.package" value="peoplestore.generated" />
 
-    <!-- ================================= 
-              target: resolve downloads the dependencies to your lib folder              
-             ================================= -->
+    <!-- target: resolve downloads the dependencies to your lib folder -->
+
     <target name="resolve" depends="install-ivy" description="--> retrieve dependencies with ivy">
         <ivy:retrieve pattern="${lib.dir}/[artifact]-[type]-[revision].[ext]"/>
     </target>
@@ -163,7 +161,7 @@
 
     <target name="execute.JavatoJson">
         <echo message="Executing JavatoJson" />
-        <java classname="JavatoJson" classpath="${build.dir}">
+        <java classname="peoplestore.JavatoJson" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
                     <include name="**/*.jar" />
@@ -176,36 +174,36 @@
 
     <target name="execute.evaluation" depends="compile">
         <echo message="'execute.evaluation' target has been called"/>
-        <antcall target="execute.printPeople"/>
-        <antcall target="execute.printPerson"/>
-        <antcall target="execute.getPersonByWeight"/>
-        <antcall target="execute.JavatoXML"/>
-        <antcall target="execute.XMLtoJava"/>
+        <antcall target="execute.getAllPeople"/>
+        <antcall target="execute.getPersonById"/>
+        <antcall target="execute.getPeopleByWeight"/>
+        <antcall target="execute.JAXBMarshaller"/>
+        <antcall target="execute.JAXBUnMarshaller"/>
         <antcall target="execute.JavatoJson"/>
     </target>
 
     <!-- runs instruction 2 based on Lab 3 -->
-    <target name="execute.printPeople"> 
-        <echo message="'execute.printPeople' target has been called"/>
+    <target name="execute.getAllPeople"> 
+        <echo message="'execute.getAllPeople' target has been called"/>
         <java classname="HealthProfileReader" classpath="build">
-            <arg value="printPeople"/>
+            <arg value="getAllPeople"/>
         </java>
     </target>
 
     <!-- runs instruction 3 based on Lab 3 with id = 5 -->
-    <target name="execute.printPerson">
-        <echo message="'execute.printPerson' target has been called"/>
+    <target name="execute.getPersonById">
+        <echo message="'execute.getPersonById' target has been called"/>
         <java classname="HealthProfileReader" classpath="build">
-            <arg value="printPerson"/>
+            <arg value="getPersonById"/>
             <arg value="5"/>
         </java>
     </target> 
 
     <!-- runs instruction 4 based on Lab 3 with weight > 90 -->
-    <target name="execute.getPersonByWeight">
-        <echo message="'execute.getPersonByWeight' target has been called"/>
+    <target name="execute.getPeopleByWeight">
+        <echo message="'execute.getPeopleByWeight' target has been called"/>
         <java classname="HealthProfileReader" classpath="build">
-            <arg value="getPersonByWeight"/>
+            <arg value="getPeopleByWeight"/>
             <arg value="90"/>
             <arg value=">"/>
         </java>

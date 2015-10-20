@@ -7,8 +7,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import dao.PeopleStore;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,9 +14,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import model.HealthProfile;
-import model.Person;
 
 public class JAXBMarshaller {
 	public void generateXMLDocument(File xmlDocument) throws DatatypeConfigurationException {
@@ -30,10 +25,9 @@ public class JAXBMarshaller {
 			marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
 			peoplestore.generated.ObjectFactory factory = new peoplestore.generated.ObjectFactory();
 			
+			//create new objects
 			PeopleType people = factory.createPeopleType();
-
 			PersonType person = factory.createPersonType();
-	
 			List<PersonType> personList = people.getPerson();
 			
 			//create 3 person and add to personList
@@ -43,7 +37,8 @@ public class JAXBMarshaller {
 			personList.add(person);
 			person = createPerson(factory, "Carlo", "Dolo", 12);
 			personList.add(person);
-
+			
+			//marshalling
 			JAXBElement<PeopleType> peopleElement = factory.createPeople(people);
 			marshaller.marshal(peopleElement, new FileOutputStream(xmlDocument)); //marshalling into a file .xml
 			marshaller.marshal(peopleElement, System.out);		// marshalling into the system default output
@@ -57,7 +52,16 @@ public class JAXBMarshaller {
 		}
 
 	}
-
+	
+	/**
+	 * Create a new person
+	 * @param factory
+	 * @param Firstname
+	 * @param Lastname
+	 * @param id
+	 * @return person 
+	 * @throws DatatypeConfigurationException
+	 */
 	public PersonType createPerson(peoplestore.generated.ObjectFactory factory, String Firstname, String Lastname, Integer id) throws DatatypeConfigurationException {
 		PersonType person = factory.createPersonType();
 		
@@ -92,7 +96,7 @@ public class JAXBMarshaller {
 	}
 	
 	public static void main(String[] argv) throws DatatypeConfigurationException {
-		String xmlDocument = "peopleX.xml";
+		String xmlDocument = "peopleMarshallUnmarshall.xml";
 		JAXBMarshaller jaxbMarshaller = new JAXBMarshaller();
 		jaxbMarshaller.generateXMLDocument(new File(xmlDocument));
 	}
