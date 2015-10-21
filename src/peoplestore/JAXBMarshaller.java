@@ -31,11 +31,11 @@ public class JAXBMarshaller {
 			List<PersonType> personList = people.getPerson();
 			
 			//create 3 person and add to personList
-			person = createPerson(factory, "Andrea", "Colo", 12);
+			person = createPerson(factory, "Andrea", "Colo", 1);
 			personList.add(person);
-			person = createPerson(factory, "Michele", "Bolo", 12);
+			person = createPerson(factory, "Michele", "Bolo", 2);
 			personList.add(person);
-			person = createPerson(factory, "Carlo", "Dolo", 12);
+			person = createPerson(factory, "Carlo", "Dolo", 3);
 			personList.add(person);
 			
 			//marshalling

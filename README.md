@@ -2,7 +2,6 @@
 
 ## [Introduction to Service Design and Engineering](https://github.com/IntroSDE) | [University of Trento](http://www.unitn.it/) 
 
-TODO 1 paragraph about the code, 1 paragraph about the tasks the code does, and 1 paragraph - how to run it
 
 This repository is the solution to the [first assignment](https://sites.google.com/a/unitn.it/introsde_2015-16/lab-sessions/assignments/assignment-1) of the course IntroSDE of the University of Trento. This assignment cover the following topics:
 
@@ -14,7 +13,7 @@ This repository is the solution to the [first assignment](https://sites.google.c
 
 The class *HealthProfileReader* reads the information about the people stored in the file *people.xml*. The file has this structure:
 
-```
+```xml
 <people>
   <person id="0001">
     <firstname>Marlon</firstname>
@@ -36,28 +35,25 @@ The requirements for this assignment are:
 
 **Based on [Lab 3](https://github.com/IntroSDE/lab03):**
 
-1.3 two functions (getWeight and getHeight) that given the id of a person, retrieves the weight and the height of this person;
-
-2.3 a function that print all the details for each person stored in the file people.xml; 
-
-3.3 a function that given the id, return the details of a person;
-
+1.3 two functions (getWeight and getHeight) that given the id of a person, retrieves the weight and the height of this person;  
+2.3 a function that print all the details for each person stored in the file people.xml;  
+3.3 a function that given the id, return the details of a person;  
 4.3 a function that print all people fulfilling a condition on the weight (>90);
 
 **Based on [Lab 4](https://github.com/IntroSDE/lab04):**
     
-1.4 Create the XML schema XSD file for the example XML document of people.
-
-2.4 convert the list of Java object Person into XML (marshalling to XML) using classes generated with JAXB XJC;
-    convert XML into a list of Java object Person (un-marshalling from XML) using classes generated with JAXB XJC;
-    
+1.4 Create the XML schema XSD file for the example XML document of people;  
+2.4 convert the list of Java object Person into XML (marshalling to XML) using classes generated with JAXB                       
+    XJC;  
+    convert XML into a list of Java object Person (un-marshalling from XML) using classes generated with JAXB   
+    XJC;  
 3.4 convert the list of Java object Person into JSON (marshalling to JSON).
 
 ### Code
 
 *[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute requirements 1.3, 2.3, 3.3, 4.3 of the previous list. The list of people are stored in people.xml;
 
-*[people.xsd](people.xsd)* XML file for the document people.xml (requirement 1.4);
+*[people.xsd](people.xsd)* XML schema file for the document people.xml (requirement 1.4);
 
 *[src/peoplestore/JAXBMarshaller.java](src/peoplestore/JAXBMarshaller.java)*: class to execute requirement 2.4. Three persons are created using Java and marshalled in XML. The Java objects are stored in the generated file *peopleMarshallUnmarshall.xml*;
 
@@ -115,3 +111,4 @@ and then one of the following command:
 * `ant execute.JAXBMarshaller`
 * `ant execute.JAXBUnMarshaller`
 * `ant execute.JavatoJson`
+* `ant clean` this command deletes the folders created during the compile phase (*build/*, *peoplestore/generated*, *lib/*, *ivy/*) and the file created during the execution of the various targets (*people.json* and *peopleMarshallUnmarshall.xml*). 

@@ -15,9 +15,12 @@ import java.io.*;
 import java.util.List;
 
 public class JAXBUnMarshaller {
+
+	/**
+	*/
 	public void unMarshall(File xmlDocument) {
 		try {
-
+			//initialization and configuration
 			JAXBContext jaxbContext = JAXBContext.newInstance("peoplestore.generated");
 
 			Unmarshaller unMarshaller = jaxbContext.createUnmarshaller();
@@ -29,13 +32,16 @@ public class JAXBUnMarshaller {
 			CustomValidationEventHandler validationEventHandler = new CustomValidationEventHandler();
 			unMarshaller.setEventHandler(validationEventHandler);
 
+			//un-marshalling
 			@SuppressWarnings("unchecked")
 			JAXBElement<PeopleType> peopleElement = (JAXBElement<PeopleType>) unMarshaller
 					.unmarshal(xmlDocument);
 
+			//print data retrived from XML
 			PeopleType people = peopleElement.getValue();
 
 			List<PersonType> personList = people.getPerson();
+			//iterate on the person 
 			for (int i = 0; i < personList.size(); i++) {
 
 				PersonType person = (PersonType) personList.get(i);
