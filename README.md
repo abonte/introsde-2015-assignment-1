@@ -32,30 +32,38 @@ The class *HealthProfileReader* reads the information about the people stored in
 </people>
   
 ```
-As soon as the file XML is stored in the memory, there methods in order to performs the following tasks:
+The requirements for this assignment are:
 
-**Based on Lab 3:**
+**Based on [Lab 3](https://github.com/IntroSDE/lab03):**
 
-1. getWeight and getHeight: given the first name and the last name of a person, retrieves the weight and the height of this person;
-2. print all the details for each person stored in the file people.xml; 
-3. given the id, return the details of a person;
-4. print all people fulfilling a condition on the weight (i.e. >90);
+1.3 two functions (getWeight and getHeight) that given the id of a person, retrieves the weight and the height of this person;
 
-**Based on Lab 4:**
+2.3 a function that print all the details for each person stored in the file people.xml; 
 
-5. convert the list of Java object Person into XML (marshalling to XML);
-6. convert XML into a list of Java object Person (unmarshalling from XML);
-7. convert the list of Java object Person into JSON (marshalling to JSON).
+3.3 a function that given the id, return the details of a person;
+
+4.3 a function that print all people fulfilling a condition on the weight (>90);
+
+**Based on [Lab 4](https://github.com/IntroSDE/lab04):**
+    
+1.4 Create the XML schema XSD file for the example XML document of people.
+
+2.4 convert the list of Java object Person into XML (marshalling to XML) using classes generated with JAXB XJC;
+    convert XML into a list of Java object Person (un-marshalling from XML) using classes generated with JAXB XJC;
+    
+3.4 convert the list of Java object Person into JSON (marshalling to JSON).
 
 ### Code
 
-*[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute task 1,2,3,4 of the previous list;
+*[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute requirements 1.3, 2.3, 3.3, 4.3 of the previous list. The list of people are stored in people.xml;
 
-*[src/peoplestore/JAXBMarshaller.java](src/peoplestore/JAXBMarshaller.java)*: class to execute task 5;
+*[people.xsd](people.xsd)* XML file for the document people.xml (requirement 1.4);
 
-*[src/peoplestore/JAXBUnMarshaller.java](src/peoplestore/JAXBUnMarshaller.java)*: class to execute task 6;
+*[src/peoplestore/JAXBMarshaller.java](src/peoplestore/JAXBMarshaller.java)*: class to execute requirement 2.4. Three persons are created using Java and marshalled in XML. The Java objects are stored in the generated file *peopleMarshallUnmarshall.xml*;
 
-*[src/peoplestore/JavatoJson.java](src/JavatoJson.java)*: class to execute task 7; 
+*[src/peoplestore/JAXBUnMarshaller.java](src/peoplestore/JAXBUnMarshaller.java)*: class to execute requirement 2.4. The data are retrieved from *people.xml*;
+
+*[src/peoplestore/JavatoJson.java](src/JavatoJson.java)*: class to execute requirement 3.4. Three persons are created using Java and marshalled in JSON. The data are stored in *people.json*; 
 
 *[src/dao/PeopleStore.java](src/dao/PeopleStore.java)* contains the data access object.
 
@@ -72,7 +80,7 @@ Then, clone the repository:
 git clone https://github.com/abonte/introsde-2015-assignment-1.git && cd introsde-2015-assignment-1
 ```
 
-Run the following command to execute all function of the project (except task 1):
+Run in your terminal the following command:
 ```
 ant execute.evaluation
 ```
@@ -84,9 +92,16 @@ ant execute.evaluation
 ```
 This command performs the following action:
 
-* download and install ivy (dependency manager) and resolve the dependencies;
-* create a build directory and compile the code in the src folder;
-* call others target defined in the build file: `execute.printPeople`, `execute.printPerson`, `execute.getPersonByWeight`, `execute.JavatoXML`, `execute.XMLtoJava`, `execute.JavatoJson`.
+* download and install ivy (dependency manager) and resolve the dependencies. *Ivy* and *lib* folders are generated;
+* generate classes JAXB XJC. These classes are used for marshalling and un-marshalling to XML. You can find the classes in [src/peoplestore/generated/](src/peoplestore/generated/);
+* create a build directory and compile the code in the src folder. You can find the compiled code in *build* folder;
+* call others target defined in the build file:
+    * `execute.getAllPeople` perform tasks in order to fulfill requirement 2.3;
+    * `execute.getPersonById` for requirements 3.3;
+    * `execute.getPersonByWeight` for requirement 4.3;
+    * `execute.JAXBMarshaller` for requirement 2.4;
+    * `execute.JAXBUnMarshaller` for requirement 2.4;
+    * `execute.JavatoJson` for requirement 3.4.
 
 You can also execute specific task. Before that you have to execute
 ```
@@ -94,11 +109,9 @@ ant compile
 ```
 and then one of the following command:
 
-* `ant execute.printPeople` performs task 2;
-* `ant execute.printPerson` performs task 3 with id=5;
-* `ant execute.getPersonByWeight` performs task returning all person with the weight > 90;
-* `ant execute.JavatoXML` performs task 5;
-* `ant execute.XMLtoJava` performs task 6;
-* `ant execute.JavatoJson` performs task 7.
-
-TODO METTERE DI GENERATE
+* `ant execute.getAllPeople`
+* `ant execute.getPersonById`
+* `ant execute.getPersonByWeight`
+* `ant execute.JAXBMarshaller`
+* `ant execute.JAXBUnMarshaller`
+* `ant execute.JavatoJson`

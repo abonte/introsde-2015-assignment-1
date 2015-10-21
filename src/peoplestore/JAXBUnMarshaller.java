@@ -60,7 +60,7 @@ public class JAXBUnMarshaller {
 	}
 
 	public static void main(String[] argv) {
-		File xmlDocument = new File("peopleMarshallUnmarshall.xml");
+		File xmlDocument = new File("people.xml");
 		JAXBUnMarshaller jaxbUnmarshaller = new JAXBUnMarshaller();
 
 		jaxbUnmarshaller.unMarshall(xmlDocument);
