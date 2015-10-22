@@ -16,8 +16,6 @@ import java.util.List;
 
 public class JAXBUnMarshaller {
 
-	/**
-	*/
 	public void unMarshall(File xmlDocument) {
 		try {
 			//initialization and configuration

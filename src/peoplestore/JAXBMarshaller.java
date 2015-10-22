@@ -60,7 +60,6 @@ public class JAXBMarshaller {
 	 * @param Lastname
 	 * @param id
 	 * @return person 
-	 * @throws DatatypeConfigurationException
 	 */
 	public PersonType createPerson(peoplestore.generated.ObjectFactory factory, String Firstname, String Lastname, Integer id) throws DatatypeConfigurationException {
 		PersonType person = factory.createPersonType();
@@ -96,7 +95,7 @@ public class JAXBMarshaller {
 	}
 	
 	public static void main(String[] argv) throws DatatypeConfigurationException {
-		String xmlDocument = "peopleMarshallUnmarshall.xml";
+		String xmlDocument = "peopleMarshall.xml";
 		JAXBMarshaller jaxbMarshaller = new JAXBMarshaller();
 		jaxbMarshaller.generateXMLDocument(new File(xmlDocument));
 	}

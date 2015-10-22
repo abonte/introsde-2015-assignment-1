@@ -43,19 +43,26 @@ The requirements for this assignment are:
 **Based on [Lab 4](https://github.com/IntroSDE/lab04):**
     
 1.4 Create the XML schema XSD file for the example XML document of people;  
-2.4 convert the list of Java object Person into XML (marshalling to XML) using classes generated with JAXB                       
-    XJC;  
-    convert XML into a list of Java object Person (un-marshalling from XML) using classes generated with JAXB   
-    XJC;  
+2.4 convert the list of Java object Person into XML (marshalling to XML) using classes generated with JAXB XJC;  
+    convert XML into a list of Java object Person (un-marshalling from XML) using classes generated with JAXB XJC;  
 3.4 convert the list of Java object Person into JSON (marshalling to JSON).
 
 ### Code
 
+##### Folders
+
+*[src/](src/)*: 
+
+*[src/model](src/model)*:
+
+*[src/peoplestore](src/peoplestore)*: 
+
+##### File
 *[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute requirements 1.3, 2.3, 3.3, 4.3 of the previous list. The list of people are stored in people.xml;
 
 *[people.xsd](people.xsd)* XML schema file for the document people.xml (requirement 1.4);
 
-*[src/peoplestore/JAXBMarshaller.java](src/peoplestore/JAXBMarshaller.java)*: class to execute requirement 2.4. Three persons are created using Java and marshalled in XML. The Java objects are stored in the generated file *peopleMarshallUnmarshall.xml*;
+*[src/peoplestore/JAXBMarshaller.java](src/peoplestore/JAXBMarshaller.java)*: class to execute requirement 2.4. Three persons are created using Java and marshalled in XML. The Java objects are stored in the generated file *peopleMarshall.xml*;
 
 *[src/peoplestore/JAXBUnMarshaller.java](src/peoplestore/JAXBUnMarshaller.java)*: class to execute requirement 2.4. The data are retrieved from *people.xml*;
 
@@ -70,13 +77,13 @@ In order to execute this project you need the following technologies (in the bra
 * Java (jdk1.8.0)
 * ANT (version 1.9.4)
 
-Then, clone the repository:
+Then, clone the repository. Run in your terminal:
 
 ```
 git clone https://github.com/abonte/introsde-2015-assignment-1.git && cd introsde-2015-assignment-1
 ```
 
-Run in your terminal the following command:
+and run the following command:
 ```
 ant execute.evaluation
 ```
@@ -89,7 +96,7 @@ ant execute.evaluation
 This command performs the following action:
 
 * download and install ivy (dependency manager) and resolve the dependencies. *Ivy* and *lib* folders are generated;
-* generate classes JAXB XJC. These classes are used for marshalling and un-marshalling to XML. You can find the classes in [src/peoplestore/generated/](src/peoplestore/generated/);
+* generate classes JAXB XJC. These classes are used for marshalling and un-marshalling to XML. You can find the classes in *src/peoplestore/generated/*;
 * create a build directory and compile the code in the src folder. You can find the compiled code in *build* folder;
 * call others target defined in the build file:
     * `execute.getAllPeople` perform tasks in order to fulfill requirement 2.3;
@@ -111,4 +118,4 @@ and then one of the following command:
 * `ant execute.JAXBMarshaller`
 * `ant execute.JAXBUnMarshaller`
 * `ant execute.JavatoJson`
-* `ant clean` this command deletes the folders created during the compile phase (*build/*, *peoplestore/generated*, *lib/*, *ivy/*) and the file created during the execution of the various targets (*people.json* and *peopleMarshallUnmarshall.xml*). 
+* `ant clean` this command deletes the folders created during the compile phase (*build/*, *peoplestore/generated*, *lib/*, *ivy/*) and the file created during the execution of the various targets (*people.json* and *peopleMarshall.xml*). 

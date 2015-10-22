@@ -45,7 +45,7 @@
 
     <!-- runs instruction 3 based on Lab 3 with id = 5 -->
     <target name="execute.getPersonById">
-        <echo message="'execute.getPersonById' target has been called"/>
+        <echo message="'execute.getPersonById' target has been called (id=5)"/>
         <java classname="HealthProfileReader" classpath="build">
             <arg value="getPersonById"/>
             <arg value="5"/>
@@ -55,6 +55,7 @@
     <!-- runs instruction 4 based on Lab 3 with weight > 90 -->
     <target name="execute.getPeopleByWeight">
         <echo message="'execute.getPeopleByWeight' target has been called"/>
+    	<echo message="people with weight > 90 Kg"/>
         <java classname="HealthProfileReader" classpath="build">
             <arg value="getPeopleByWeight"/>
             <arg value="90"/>
@@ -64,7 +65,7 @@
    
    <!-- runs instruction 2 based on Lab 4 -->
     <target name="execute.JAXBMarshaller">
-        <echo message="Executing JAXBMarshaller" />
+        <echo message="Executing JAXBMarshaller. Saved in 'peopleMarshall.xml'" />
         <java classname="peoplestore.JAXBMarshaller" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
@@ -77,7 +78,7 @@
 
     <!-- runs instruction 2 based on Lab 4 -->
     <target name="execute.JAXBUnMarshaller">
-        <echo message="Executing JAXBUnMarshaller" />
+        <echo message="Executing JAXBUnMarshaller from file 'people.xml'" />
         <java classname="peoplestore.JAXBUnMarshaller" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
@@ -90,7 +91,7 @@
 
     <!-- runs instruction 3 based on Lab 4 -->
     <target name="execute.JavatoJson">
-        <echo message="Executing JavatoJson" />
+        <echo message="Executing JavatoJson, Saved in to people.json" />
         <java classname="peoplestore.JavatoJson" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">
@@ -173,8 +174,8 @@
         <echo message="${lib.dir} has been deleted" />
         <delete file="people.json" />
         <echo message="people.json has been deleted" />
-        <delete file="peopleMarshallUnmarshall.xml" />
-        <echo message="peopleMarshallUnmarshall.xml has been deleted" />
+        <delete file="peopleMarshall.xml" />
+        <echo message="peopleMarshall.xml has been deleted" />
     </target>
 
     <target name="generate" depends="init">
