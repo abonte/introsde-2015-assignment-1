@@ -102,7 +102,7 @@ public class HealthProfileReader {
 	
 	/**
 	* Print details of a person
-	* @param node a node that represent a person
+	* @param node a node that represents a person
 	*/
 	public void printPerson(Node node) throws XPathExpressionException{
 		System.out.println("========================================");

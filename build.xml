@@ -91,7 +91,7 @@
 
     <!-- runs instruction 3 based on Lab 4 -->
     <target name="execute.JavatoJson">
-        <echo message="Executing JavatoJson, Saved in to people.json" />
+        <echo message="Executing JavatoJson, Saved into people.json" />
         <java classname="peoplestore.JavatoJson" classpath="${build.dir}">
             <classpath>
                 <fileset dir="${lib.dir}">

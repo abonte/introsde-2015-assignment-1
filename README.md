@@ -51,11 +51,11 @@ The requirements for this assignment are:
 
 ##### Folders
 
-*[src/](src/)*: 
+*[src/](src/)*: contains source code;
 
-*[src/model](src/model)*:
+*[src/model](src/model)*: contains the definition of *Person* and *HealthProfile*;
 
-*[src/peoplestore](src/peoplestore)*: 
+*[src/peoplestore](src/peoplestore)*: contains the code for marshalling and un-marshalling from/to XML and marshalling to JSON;
 
 ##### File
 *[src/HealthProfileReader.java](src/HealthProfileReader.java)*: contains the code to execute requirements 1.3, 2.3, 3.3, 4.3 of the previous list. The list of people are stored in people.xml;
@@ -106,7 +106,7 @@ This command performs the following action:
     * `execute.JAXBUnMarshaller` for requirement 2.4;
     * `execute.JavatoJson` for requirement 3.4.
 
-You can also execute specific task. Before that you have to execute
+You can also execute specific task. Before, you have to execute
 ```
 ant compile
 ```
